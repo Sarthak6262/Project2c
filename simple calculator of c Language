@@ -1,0 +1,94 @@
+#include <stdio.h>
+#include <math.h>
+
+double division(double, double);
+int modulus(int, int); // Changed return type to int
+void print_menu();
+
+int main() {
+    int choice;
+    double first, second, result;
+
+    while (1) {
+        print_menu();
+        scanf("%d", &choice);
+
+        if (choice == 7) {
+            break;
+        }
+
+        if (choice < 1 || choice > 7) {
+            fprintf(stderr, "Invalid Menu Choice.\n");
+            continue;
+        }
+
+        printf("\nPlease enter the first number: ");
+        scanf("%lf", &first);
+        printf("Now, enter the second number: ");
+        scanf("%lf", &second);
+
+        switch (choice) {
+            case 1: // Add
+                result = first + second;
+                break;
+            case 2: // Subtract
+                result = first - second;
+                break;
+            case 3: // Multiply
+                result = first * second;
+                break;
+            case 4: // Divide
+                result = division(first, second);
+                break;
+            case 5: // Modulus
+                result = modulus((int)first, (int)second);
+                break;
+            case 6: // Power
+                result = pow(first, second);
+                break;
+            default:
+                result = NAN; // fallback for safety
+        }
+
+        if (!isnan(result)) {
+            printf("\nResult of operation is: %.2f\n", result);
+        } else {
+            printf("\nAn error occurred during the operation.\n");
+        }
+    }
+
+    return 0;
+}
+
+double division(double a, double b) {
+    if (b == 0) {
+        fprintf(stderr, "Invalid Argument for Division\n");
+        return NAN;
+    } else {
+        return a / b;
+    }
+}
+
+int modulus(int a, int b) {
+    if (b == 0) {
+        fprintf(stderr, "Invalid Argument for Modulus\n");
+        return NAN; // NAN is a double; use error code -1 instead
+    } else {
+        return a % b;
+    }
+}
+
+void print_menu() {
+    printf("\n\n---------------------------------\n");
+    printf("Welcome to Simple Calculator\n\n");
+    printf("Choose one of the following options:\n");
+    printf("1. Add\n");
+    printf("2. Subtract\n");
+    printf("3. Multiply\n");
+    printf("4. Divide\n");
+    printf("5. Modulus\n");
+    printf("6. Power\n");
+    printf("7. Exit\n");
+    printf("Now, enter your choice: ");
+}
+
